@@ -35,7 +35,7 @@ public class WebSocket : IWebSocket
 
     public event Action<NvrUpdatePacket>? Updated;
 
-    public bool IsConnected => websocket?.State != WebSocketState.Open;
+    public bool IsConnected => websocket?.State == WebSocketState.Open;
 
     public async Task<bool> Connect(Uri uri)
     {
@@ -192,13 +192,13 @@ public class WebSocket : IWebSocket
                     logger.LogDebug("Sadness web socket closed");
                     return;
                 case WebSocketMessageType.Binary:
-                {
-                    var updatePacket = await DecodeUpdatePacket(rcvBuffer.Slice(0, rcvResult.Count));
-                    if (updatePacket != null)
                     {
-                        this.Updated?.Invoke(updatePacket);
+                        var updatePacket = await DecodeUpdatePacket(rcvBuffer.Slice(0, rcvResult.Count));
+                        if (updatePacket != null)
+                        {
+                            this.Updated?.Invoke(updatePacket);
+                        }
                     }
-                }
 
                     break;
                 default:

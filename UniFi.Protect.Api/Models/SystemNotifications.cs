@@ -2,5 +2,7 @@
 
 public class SystemNotifications
 {
-    public SystemNotifications() { }
+    public SystemNotifications()
+    {
+    }
 }

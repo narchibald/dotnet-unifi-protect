@@ -3,5 +3,5 @@
 public enum UpdatePacketType
 {
     Action = 1,
-    Payload = 2
+    Payload = 2,
 }

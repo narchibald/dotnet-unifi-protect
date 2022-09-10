@@ -1,12 +1,10 @@
 ﻿namespace UniFi.Protect.Api;
 
-using System.Net;
-    using System.Net.Http.Headers;
-    using System.Net.WebSockets;
-    using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Serialization;
-    using UniFi.Protect.Api.Models;
+using System.Net.Http.Headers;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using UniFi.Protect.Api.Models;
 
 public class Protect : IProtect
 {
@@ -452,8 +450,8 @@ public class Protect : IProtect
             {
                 new ProductInfoHeaderValue("rejectUnauthorized", "false"),
                 new ProductInfoHeaderValue("keepAlive", "true"),
-                new ProductInfoHeaderValue("maxSockets", (10).ToString()),
-                new ProductInfoHeaderValue("maxFreeSockets", (5).ToString()),
+                new ProductInfoHeaderValue("maxSockets", 10.ToString()),
+                new ProductInfoHeaderValue("maxFreeSockets", 5.ToString()),
                 new ProductInfoHeaderValue("timeout", (60 * 1000).ToString()),
             });
 
@@ -485,9 +483,8 @@ public class Protect : IProtect
             request.Headers.Add(header.Key, header.Value.ToString());
         }
 
-        //foreach (var header in this.agent)
-        //  request.Headers.UserAgent.Add(header);
-
+        // foreach (var header in this.agent)
+        // request.Headers.UserAgent.Add(header);
         request.Version = new Version(2, 0);
 
         return request;

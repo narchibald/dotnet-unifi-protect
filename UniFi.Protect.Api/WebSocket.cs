@@ -1,20 +1,8 @@
 ﻿namespace UniFi.Protect.Api;
 
-using System.Net;
 using System.Net.WebSockets;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using UniFi.Protect.Api.Extensions;
-using UniFi.Protect.Api.Models;
-#if NET6_0
-using System.IO.Compression;	
-#else
-using Ionic.Zlib;
-#endif
 
 public class WebSocket : IWebSocket
 {

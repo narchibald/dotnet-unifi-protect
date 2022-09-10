@@ -4,5 +4,5 @@ public enum UpdatePayloadType
 {
     Json = 1,
     String = 2,
-    Buffer = 3
+    Buffer = 3,
 }

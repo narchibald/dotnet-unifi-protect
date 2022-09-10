@@ -6,5 +6,5 @@ public enum UpdatePacketHeader
     PayloadFormat = 1,
     Deflated = 2,
     Unknown = 3,
-    PayloadSize = 4
+    PayloadSize = 4,
 }

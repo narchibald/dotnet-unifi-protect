@@ -2,5 +2,7 @@
 
 public class Flags
 {
-    public Flags() { }
+    public Flags()
+    {
+    }
 }

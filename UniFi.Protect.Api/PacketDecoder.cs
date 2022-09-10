@@ -1,10 +1,13 @@
 ﻿namespace UniFi.Protect.Api;
 
+#if NET6_0
+using System.IO.Compression;
+#else
 using Ionic.Zlib;
+#endif
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using UniFi.Protect.Api.Extensions;
 using UniFi.Protect.Api.Models;
@@ -146,4 +149,3 @@ public class PacketDecoder : IPacketDecoder
         public object Data { get; }
     }
 }
-

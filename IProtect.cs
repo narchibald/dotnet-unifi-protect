@@ -3,7 +3,10 @@
 public interface IProtect
 {
     event Action<NvrUpdatePacket>? Updated;
+
     string NvrName { get; }
-    Task<bool> Connect();
+
+    Task<bool> Connect(bool autoRefresh = false);
+
     Task<bool> RefreshDevices();
 }

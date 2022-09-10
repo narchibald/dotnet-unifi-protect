@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿namespace UniFi.Protect.Api.Models;
 
-namespace UniFi.Protect.Api.Models;
+using Newtonsoft.Json;
 
 public class RecordingSettings
 {

@@ -9,6 +9,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ISharedCookieContainer, SharedCookieContainer>();
         services.AddScoped<IWebSocket, WebSocket>();
         services.AddScoped<IProtect, Protect>();
+        services.AddScoped<IPacketDecoder, PacketDecoder>();
 
         return services;
     }

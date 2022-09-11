@@ -20,7 +20,6 @@ public interface IPacketDecoder
 public class PacketDecoder : IPacketDecoder
 {
     private const int UpdatePacketHeaderSize = 8;
-    private const int PayloadPosition = UpdatePacketHeaderSize + 1;
 
     /*
      *  ### Packet Structure ###
@@ -77,7 +76,7 @@ public class PacketDecoder : IPacketDecoder
         var payloadFormat = (UpdatePayloadType)data.ReadUInt8((int)UpdatePacketHeader.PayloadFormat);
 
         var compressed = data.ReadUInt8((int)UpdatePacketHeader.Deflated) == (byte)1;
-        var payload = data.Slice(PayloadPosition);
+        var payload = data.Slice(UpdatePacketHeaderSize);
         if (compressed)
         {
             payload = await Inflate(payload);
@@ -88,7 +87,7 @@ public class PacketDecoder : IPacketDecoder
             return null;
         }
 
-        var json = Encoding.UTF8.GetString(payload.Array!);
+        var json = Encoding.UTF8.GetString(payload.ToArray());
         return JsonConvert.DeserializeObject<NvrUpdateEventAction>(json);
     }
 

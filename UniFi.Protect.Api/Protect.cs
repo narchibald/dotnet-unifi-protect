@@ -39,7 +39,7 @@ public class Protect : IProtect
             CookieContainer = cookieContainer.Container,
             SslProtocols =
 #if NET6_0
-                    System.Security.Authentication.SslProtocols.Tls13,
+                System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls13,
 #else
                 System.Security.Authentication.SslProtocols.Tls12,
 #endif
@@ -47,9 +47,7 @@ public class Protect : IProtect
 
         if (this.configuration.AllowUntrustedCerts)
         {
-            handler.ClientCertificateOptions = ClientCertificateOption.Manual;
-            handler.ServerCertificateCustomValidationCallback =
-                (httpRequestMessage, cert, cetChain, policyErrors) => true;
+            handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
         }
 
         this.httpClient = new (handler);
@@ -430,8 +428,9 @@ public class Protect : IProtect
 
         // UniFi OS has cross-site request forgery protection built into it's web management UI.
         // We use this fact to fingerprint it by connecting directly to the supplied NVR address
-        // and see ifing there's a CSRF token waiting for us.
+        // and seeing if there's a CSRF token waiting for us.
         using var requestMessage = AddHeaders(new HttpRequestMessage(HttpMethod.Get, this.SystemUrl));
+        this.logger.LogDebug("Acquiring Token. url: {Url}", requestMessage.RequestUri);
         using var response = await this.httpClient.SendAsync(requestMessage);
         if (!response.IsSuccessStatusCode)
         {

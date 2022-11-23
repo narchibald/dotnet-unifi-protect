@@ -1,6 +1,6 @@
 ﻿namespace UniFi.Protect.Api;
 
-#if NET6_0
+#if NET6_0_OR_GREATER
 using System.IO.Compression;
 #else
 using Ionic.Zlib;
@@ -123,7 +123,7 @@ public class PacketDecoder : IPacketDecoder
     {
         await using var compressedStream = new MemoryStream(deflatedData.ToArray());
         await using var uncompressedStream = new MemoryStream();
-#if NET6_0
+#if NET6_0_OR_GREATER
         using var decompressor = new ZLibStream(compressedStream, CompressionMode.Decompress);
 #else
         await using var decompressor = new ZlibStream(compressedStream, CompressionMode.Decompress);

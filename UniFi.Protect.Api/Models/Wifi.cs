@@ -6,11 +6,11 @@ public class Wifi
 {
     [JsonConstructor]
     public Wifi(
-        int channel,
-        int frequency,
+        int? channel,
+        int? frequency,
         object linkSpeedMbps,
-        int signalQuality,
-        int signalStrength)
+        int? signalQuality,
+        int? signalStrength)
     {
         this.Channel = channel;
         this.Frequency = frequency;
@@ -19,13 +19,13 @@ public class Wifi
         this.SignalStrength = signalStrength;
     }
 
-    public int Channel { get; }
+    public int? Channel { get; }
 
-    public int Frequency { get; }
+    public int? Frequency { get; }
 
     public object LinkSpeedMbps { get; }
 
-    public int SignalQuality { get; }
+    public int? SignalQuality { get; }
 
-    public int SignalStrength { get; }
+    public int? SignalStrength { get; }
 }

@@ -10,7 +10,7 @@ public class TalkbackSettings
         string bindAddr,
         int bindPort,
         string filterAddr,
-        int filterPort,
+        int? filterPort,
         int channels,
         int samplingRate,
         int bitsPerSample,
@@ -38,7 +38,7 @@ public class TalkbackSettings
 
     public string FilterAddr { get; }
 
-    public int FilterPort { get; }
+    public int? FilterPort { get; }
 
     public int Channels { get; }
 

@@ -6,11 +6,11 @@ public class WifiConnectionState
 {
     [JsonConstructor]
     public WifiConnectionState(
-        int channel,
-        int frequency,
-        int phyRate,
-        int signalQuality,
-        int signalStrength,
+        int? channel,
+        int? frequency,
+        int? phyRate,
+        int? signalQuality,
+        int? signalStrength,
         string ssid)
     {
         this.Channel = channel;
@@ -21,15 +21,15 @@ public class WifiConnectionState
         this.Ssid = ssid;
     }
 
-    public int Channel { get; }
+    public int? Channel { get; }
 
-    public int Frequency { get; }
+    public int? Frequency { get; }
 
-    public int PhyRate { get; }
+    public int? PhyRate { get; }
 
-    public int SignalQuality { get; }
+    public int? SignalQuality { get; }
 
-    public int SignalStrength { get; }
+    public int? SignalStrength { get; }
 
     public string Ssid { get; }
 }

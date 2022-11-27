@@ -9,7 +9,7 @@ public class MotionZone
         int id,
         string name,
         string color,
-        List<List<int>> points,
+        List<List<float>> points,
         int sensitivity)
     {
         this.Id = id;
@@ -25,7 +25,7 @@ public class MotionZone
 
     public string Color { get; }
 
-    public IReadOnlyList<List<int>> Points { get; }
+    public IReadOnlyList<List<float>> Points { get; }
 
     public int Sensitivity { get; }
 }

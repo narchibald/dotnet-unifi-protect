@@ -39,7 +39,7 @@ public class Nvr
         bool isWirelessUplinkEnabled,
         string timeFormat,
         string temperatureUnit,
-        long recordingRetentionDurationMs,
+        long? recordingRetentionDurationMs,
         bool enableCrashReporting,
         bool disableAudio,
         string analyticsData,
@@ -195,7 +195,7 @@ public class Nvr
 
     public string TemperatureUnit { get; }
 
-    public long RecordingRetentionDurationMs { get; }
+    public long? RecordingRetentionDurationMs { get; }
 
     public bool EnableCrashReporting { get; }
 

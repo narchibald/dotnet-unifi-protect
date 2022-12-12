@@ -7,7 +7,7 @@ public class RecordingSpace
     [JsonConstructor]
     public RecordingSpace(
         long total,
-        long used,
+        long? used,
         long available)
     {
         this.Total = total;
@@ -17,7 +17,7 @@ public class RecordingSpace
 
     public long Total { get; }
 
-    public long Used { get; }
+    public long? Used { get; }
 
     public long Available { get; }
 }

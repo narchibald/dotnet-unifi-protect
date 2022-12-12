@@ -7,7 +7,7 @@ public class SmartDetectAgreement
     [JsonConstructor]
     public SmartDetectAgreement(
         string status,
-        long lastUpdateAt)
+        long? lastUpdateAt)
     {
         this.Status = status;
         this.LastUpdateAt = lastUpdateAt;
@@ -15,5 +15,5 @@ public class SmartDetectAgreement
 
     public string Status { get; }
 
-    public long LastUpdateAt { get; }
+    public long? LastUpdateAt { get; }
 }

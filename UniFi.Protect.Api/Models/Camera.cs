@@ -13,9 +13,9 @@ public class Camera
         string type,
         string name,
         long upSince,
-        long uptime,
-        long lastSeen,
-        long connectedSince,
+        long? uptime,
+        long? lastSeen,
+        long? connectedSince,
         string state,
         string hardwareRevision,
         string firmwareVersion,
@@ -36,17 +36,17 @@ public class Camera
         bool isRecording,
         bool isMotionDetected,
         bool isSmartDetected,
-        int phyRate,
+        int? phyRate,
         bool hdrMode,
         string videoMode,
         bool isProbingForWifi,
         string apMac,
-        int apRssi,
+        int? apRssi,
         string elementInfo,
         int chimeDuration,
         bool isDark,
         object lastPrivacyZonePositionId,
-        long lastRing,
+        long? lastRing,
         bool isLiveHeatmapEnabled,
         string anonymousDeviceId,
         EventStats eventStats,
@@ -173,11 +173,11 @@ public class Camera
 
     public long UpSince { get; }
 
-    public long Uptime { get; }
+    public long? Uptime { get; }
 
-    public long LastSeen { get; }
+    public long? LastSeen { get; }
 
-    public long ConnectedSince { get; }
+    public long? ConnectedSince { get; }
 
     public string State { get; }
 
@@ -219,7 +219,7 @@ public class Camera
 
     public bool IsSmartDetected { get; }
 
-    public int PhyRate { get; }
+    public int? PhyRate { get; }
 
     public bool HdrMode { get; }
 
@@ -229,7 +229,7 @@ public class Camera
 
     public string ApMac { get; }
 
-    public int ApRssi { get; }
+    public int? ApRssi { get; }
 
     public string ElementInfo { get; }
 
@@ -239,7 +239,7 @@ public class Camera
 
     public object LastPrivacyZonePositionId { get; }
 
-    public long LastRing { get; }
+    public long? LastRing { get; }
 
     public bool IsLiveHeatmapEnabled { get; }
 

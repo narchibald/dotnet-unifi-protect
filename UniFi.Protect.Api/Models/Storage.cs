@@ -6,7 +6,7 @@ public class Storage
 {
     [JsonConstructor]
     public Storage(
-        long used,
+        long? used,
         double rate,
         long available,
         bool isRecycling,
@@ -23,7 +23,7 @@ public class Storage
         this.Devices = devices;
     }
 
-    public long Used { get; }
+    public long? Used { get; }
 
     public double Rate { get; }
 

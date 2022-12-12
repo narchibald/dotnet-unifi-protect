@@ -6,14 +6,14 @@ public class Video
 {
     [JsonConstructor]
     public Video(
-        long recordingStart,
-        long recordingEnd,
-        long recordingStartLq,
-        long recordingEndLq,
-        long timelapseStart,
-        long timelapseEnd,
-        long timelapseStartLq,
-        long timelapseEndLq)
+        long? recordingStart,
+        long? recordingEnd,
+        long? recordingStartLq,
+        long? recordingEndLq,
+        long? timelapseStart,
+        long? timelapseEnd,
+        long? timelapseStartLq,
+        long? timelapseEndLq)
     {
         this.RecordingStart = recordingStart;
         this.RecordingEnd = recordingEnd;
@@ -25,19 +25,19 @@ public class Video
         this.TimelapseEndLq = timelapseEndLq;
     }
 
-    public long RecordingStart { get; }
+    public long? RecordingStart { get; }
 
-    public long RecordingEnd { get; }
+    public long? RecordingEnd { get; }
 
-    public long RecordingStartLq { get; }
+    public long? RecordingStartLq { get; }
 
-    public long RecordingEndLq { get; }
+    public long? RecordingEndLq { get; }
 
-    public long TimelapseStart { get; }
+    public long? TimelapseStart { get; }
 
-    public long TimelapseEnd { get; }
+    public long? TimelapseEnd { get; }
 
-    public long TimelapseStartLq { get; }
+    public long? TimelapseStartLq { get; }
 
-    public long TimelapseEndLq { get; }
+    public long? TimelapseEndLq { get; }
 }

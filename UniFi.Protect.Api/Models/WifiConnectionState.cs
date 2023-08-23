@@ -8,7 +8,7 @@ public class WifiConnectionState
     public WifiConnectionState(
         int? channel,
         int? frequency,
-        int? phyRate,
+        decimal? phyRate,
         int? signalQuality,
         int? signalStrength,
         string ssid)
@@ -25,7 +25,7 @@ public class WifiConnectionState
 
     public int? Frequency { get; }
 
-    public int? PhyRate { get; }
+    public decimal? PhyRate { get; }
 
     public int? SignalQuality { get; }
 

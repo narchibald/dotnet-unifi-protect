@@ -36,7 +36,7 @@ public class Camera
         bool isRecording,
         bool isMotionDetected,
         bool isSmartDetected,
-        int? phyRate,
+        decimal? phyRate,
         bool hdrMode,
         string videoMode,
         bool isProbingForWifi,
@@ -219,7 +219,7 @@ public class Camera
 
     public bool IsSmartDetected { get; }
 
-    public int? PhyRate { get; }
+    public decimal? PhyRate { get; }
 
     public bool HdrMode { get; }
 

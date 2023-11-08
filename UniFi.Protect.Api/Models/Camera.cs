@@ -51,7 +51,7 @@ public class Camera
         string anonymousDeviceId,
         EventStats eventStats,
         bool videoReconfigurationInProgress,
-        double voltage,
+        double? voltage,
         WiredConnectionState wiredConnectionState,
         List<Channel> channels,
         IspSettings ispSettings,
@@ -249,7 +249,7 @@ public class Camera
 
     public bool VideoReconfigurationInProgress { get; }
 
-    public double Voltage { get; }
+    public double? Voltage { get; }
 
     public WiredConnectionState WiredConnectionState { get; }
 

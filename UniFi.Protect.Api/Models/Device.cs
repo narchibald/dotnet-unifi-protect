@@ -8,7 +8,7 @@ public class Device
     public Device(
         string model,
         long size,
-        bool healthy)
+        string healthy)
     {
         this.Model = model;
         this.Size = size;
@@ -19,5 +19,5 @@ public class Device
 
     public long Size { get; }
 
-    public bool Healthy { get; }
+    public string Healthy { get; }
 }

@@ -397,7 +397,7 @@ public class Protect : IProtect
         var csrfToken = response.Headers.GetValues("X-CSRF-Token").FirstOrDefault();
         var cookie = response.Headers.GetValues("Set-Cookie").FirstOrDefault();
 
-        if (!string.IsNullOrEmpty(csrfToken) && !string.IsNullOrEmpty(cookie) && this.headers.ContainsKey("X-CSRF-Token"))
+        if (!string.IsNullOrEmpty(csrfToken) && !string.IsNullOrEmpty(cookie))
         {
             // this.headers["Cookie"] = cookie;
             this.headers["X-CSRF-Token"] = csrfToken;
@@ -432,29 +432,30 @@ public class Protect : IProtect
         using var requestMessage = AddHeaders(new HttpRequestMessage(HttpMethod.Get, this.SystemUrl));
         this.logger.LogDebug("Acquiring Token. url: {Url}", requestMessage.RequestUri);
         using var response = await this.httpClient.SendAsync(requestMessage);
-        if (!response.IsSuccessStatusCode)
+        if (response.IsSuccessStatusCode)
         {
-            return false;
-        }
-
-        var csrfToken = response.Headers.GetValues("X-CSRF-Token")?.FirstOrDefault();
-        if (!string.IsNullOrWhiteSpace(csrfToken))
-        {
-            this.isUniFiOs = true;
-            headers["X-CSRF-Token"] = csrfToken;
-
-            // UniFi OS has support for keepalive. Let's take advantage of that and reduce the workload on controllers.
-            agent.Clear();
-            agent.AddRange(new[]
+            var rawData = await response.Content.ReadAsStringAsync();
+            if (!string.IsNullOrWhiteSpace(rawData))
             {
-                new ProductInfoHeaderValue("rejectUnauthorized", "false"),
-                new ProductInfoHeaderValue("keepAlive", "true"),
-                new ProductInfoHeaderValue("maxSockets", 10.ToString()),
-                new ProductInfoHeaderValue("maxFreeSockets", 5.ToString()),
-                new ProductInfoHeaderValue("timeout", (60 * 1000).ToString()),
-            });
+                var info = JsonConvert.DeserializeObject<UniFiOInfo>(rawData);
+                if (info != null && !string.IsNullOrWhiteSpace(info.Mac) && !string.IsNullOrWhiteSpace(info.Name))
+                {
+                    this.isUniFiOs = true;
 
-            return true;
+                    // UniFi OS has support for keepalive. Let's take advantage of that and reduce the workload on controllers.
+                    agent.Clear();
+                    agent.AddRange(new[]
+                    {
+                        new ProductInfoHeaderValue("rejectUnauthorized", "false"),
+                        new ProductInfoHeaderValue("keepAlive", "true"),
+                        new ProductInfoHeaderValue("maxSockets", 10.ToString()),
+                        new ProductInfoHeaderValue("maxFreeSockets", 5.ToString()),
+                        new ProductInfoHeaderValue("timeout", (60 * 1000).ToString()),
+                    });
+
+                    return true;
+                }
+            }
         }
 
         // If we don't have a token, the only option left for us is to look for a UniFi Cloud Key Gen2+ device.
@@ -514,4 +515,11 @@ public class Protect : IProtect
     private void LogError(string message) => this.logger.LogError("{NvrName} : {Message}", NvrName, message);
 
     private void LogDebug(string message) => this.logger.LogDebug("{NvrName} : {Message}", NvrName, message);
+
+    private class UniFiOInfo
+    {
+        public string Name { get; set; }
+
+        public string Mac { get; set; }
+    }
 }

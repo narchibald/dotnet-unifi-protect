@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 public class NvrUpdateEventAction
 {
     [JsonConstructor]
-    public NvrUpdateEventAction(string action, string id, string modelKey, string newUpdateId)
+    public NvrUpdateEventAction(string action, string id, string modelKey, Guid newUpdateId)
     {
         this.Action = action;
         this.Id = id;
@@ -19,5 +19,5 @@ public class NvrUpdateEventAction
 
     public string ModelKey { get; }
 
-    public string NewUpdateId { get; }
+    public Guid NewUpdateId { get; }
 }

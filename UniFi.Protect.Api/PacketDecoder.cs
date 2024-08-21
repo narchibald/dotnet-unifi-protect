@@ -9,8 +9,9 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System;
 using System.Text;
-using UniFi.Protect.Api.Extensions;
-using UniFi.Protect.Api.Models;
+using Extensions;
+using Models;
+using Models.Payloads;
 
 public interface IPacketDecoder
 {
@@ -20,6 +21,15 @@ public interface IPacketDecoder
 public class PacketDecoder : IPacketDecoder
 {
     private const int UpdatePacketHeaderSize = 8;
+
+    private static readonly Dictionary<string, Type> ModelTypes;
+
+    static PacketDecoder()
+    {
+        ModelTypes = typeof(PacketDecoder).Assembly.ExportedTypes
+            .SelectMany(x => x.GetCustomAttributes(typeof(PayloadIdentifierAttribute), false).Select(a => new { Attribute = (PayloadIdentifierAttribute)a, Type = x }))
+            .ToDictionary(x => x.Attribute!.ModelKey, v => v.Type, StringComparer.InvariantCultureIgnoreCase);
+    }
 
     /*
      *  ### Packet Structure ###
@@ -58,11 +68,25 @@ public class PacketDecoder : IPacketDecoder
 
         return payload.Format switch
         {
-            UpdatePayloadType.Json => new NvrUpdatePacket<JObject>(action, payload.Format, (JObject)payload.Data),
+            UpdatePayloadType.Json => ParseJsonPayload(action, (JObject)payload.Data),
             UpdatePayloadType.String => new NvrUpdatePacket<string>(action, payload.Format, (string)payload.Data),
             UpdatePayloadType.Buffer => new NvrUpdatePacket<byte[]>(action, payload.Format, (byte[])payload.Data),
             _ => null
         };
+    }
+
+    private NvrUpdatePacket ParseJsonPayload(NvrUpdateEventAction action, JObject data)
+    {
+        if (ModelTypes.TryGetValue(action.ModelKey, out var parseType))
+        {
+            var typedData = data.ToObject(parseType);
+            var typedUpdatePacketType = typeof(NvrUpdatePacket<>).MakeGenericType(parseType);
+            return (NvrUpdatePacket)Activator.CreateInstance(typedUpdatePacketType, action, UpdatePayloadType.Json, typedData)!;
+        }
+        else
+        {
+            return new NvrUpdatePacket<JObject>(action, UpdatePayloadType.Json, data);
+        }
     }
 
     private static async Task<NvrUpdateEventAction?> DecodeAction(ArraySegment<byte> data)

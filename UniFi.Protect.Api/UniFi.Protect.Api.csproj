@@ -7,6 +7,12 @@
     <Nullable>enable</Nullable>
     <RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
     <AssemblyName>$(MSBuildProjectName)</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>DotNet-UniFi.Protect.Api</PackageId>
+    <Title>UniFi Protect Api</Title>
+    <Authors />
+    <Description>Unoffical UniFi Protect .Net API library </Description>
+    <PackageProjectUrl>https://github.com/narchibald/dotnet-unifi-protect</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
